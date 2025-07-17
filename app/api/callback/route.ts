@@ -4,8 +4,8 @@ import axios from 'axios';
 
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
-const REDIRECT_URI = 'https://ocr-test.vercel.app/api/callback';
-const SCRIPT_URL = process.env.NEXT_PUBLIC_SCRIPT_URL;
+const SCRIPT_URL = process.env.SCRIPT_URL || "";
+const REDIRECT_URI = 'https://hepsa-ocr-test.vercel.app/api/callback';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -32,7 +32,7 @@ export async function GET(request: Request) {
     });
 
     return NextResponse.redirect('/?status=' + encodeURIComponent(response.data.message));
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.redirect('/?status=' + encodeURIComponent('Error al procesar: ' + error.message));
   }
 }
